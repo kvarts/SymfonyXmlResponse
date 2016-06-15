@@ -1,5 +1,5 @@
 {
-    "name": "michalcarson/symfony-xml-response",
+    "name": "nexsja/symfony-xml-response",
     "type": "library",
     "description": "A simple XML Response formatter for Symfony.",
     "keywords": ["symfony", "xml", "response"],
