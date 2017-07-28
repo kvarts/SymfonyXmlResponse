@@ -49,7 +49,7 @@ The static <code>create()</code> method and the constructor both accept addition
 
 ```php
 // specifying optional return code and headers
-$response = new XmlResponse($data, 202, array('Foo-Header' => 'bar'));
+$response = new XmlResponse($data, null, 202, array('Foo-Header' => 'bar'));
 return $response;
 ```
 

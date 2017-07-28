@@ -45,16 +45,21 @@ class XmlResponse extends Response
     /**
      * Constructor.
      *
-     * @param mixed $data    The response data
-     * @param int   $status  The response status code
-     * @param array $headers An array of response headers
+     * @param mixed    $data            The response data
+     * @param string   $rootElementName The name of root element
+     * @param int      $status          The response status code
+     * @param array    $headers         An array of response headers
      */
-    public function __construct($data = null, $status = 200, $headers = array())
+    public function __construct($data = null, $rootElementName = null, $status = 200, $headers = array())
     {
         parent::__construct('', $status, $headers);
 
         if (null === $data) {
             $data = new \ArrayObject();
+        }
+
+        if (null !== $rootElementName) {
+            $this->root_element_name = $rootElementName;
         }
 
         $this->xml_writer = new \XMLWriter();
@@ -70,8 +75,7 @@ class XmlResponse extends Response
      */
     public static function create($data = null, $status = 200, $headers = array())
     {
-        return new static($data, $status, $headers);
-
+        return new static($data, null, $status, $headers);
     }
 
     /**

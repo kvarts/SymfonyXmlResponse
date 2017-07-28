@@ -66,7 +66,7 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
 
     public function testConstructorWithCustomStatus()
     {
-        $response = new XmlResponse(array(), 202);
+        $response = new XmlResponse(array(), null, 202);
         $this->assertEquals(202, $response->getStatusCode());
     }
 
@@ -78,7 +78,7 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
 
     public function testConstructorWithCustomHeaders()
     {
-        $response = new XmlResponse(array(), 200, array('ETag' => 'foo'));
+        $response = new XmlResponse(array(), null, 200, array('ETag' => 'foo'));
         $this->assertEquals('application/xml', $response->headers->get('Content-Type'));
         $this->assertEquals('foo', $response->headers->get('ETag'));
     }
@@ -87,7 +87,7 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
     {
         $headers = array('Content-Type' => 'application/vnd.acme.blog-v1+xml');
 
-        $response = new XmlResponse(array(), 200, $headers);
+        $response = new XmlResponse(array(), null, 200, $headers);
         $this->assertEquals('application/vnd.acme.blog-v1+xml', $response->headers->get('Content-Type'));
     }
 
@@ -199,6 +199,12 @@ class XmlResponseTest extends \PHPUnit_Framework_TestCase {
         $response = XmlResponse::create();
         $response->root_element_name = 'pericles';
         $response->setData(['foo' => 'baz']);
+        $this->assertContentEquals('<foo>baz</foo>', $response, '', 'pericles');
+    }
+
+    public function testConstructWithAnotherRootElementName()
+    {
+        $response = new XmlResponse(['foo' => 'baz'], 'pericles');
         $this->assertContentEquals('<foo>baz</foo>', $response, '', 'pericles');
     }
 
